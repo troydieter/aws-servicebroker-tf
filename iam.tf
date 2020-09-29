@@ -30,13 +30,13 @@ resource "aws_iam_user" "serv-broker-user" {
 
 resource "aws_iam_policy" "awsservicebroker_policy" {
   name        = "awsservicebroker_policy"
-  description = "Policy that is to be attached to the PCF Service Broker User"
+  description = "Policy that is to be attached to the AWS Service Broker User"
   policy      = data.template_file.awsservicebrokerpolicy.rendered
 }
 
 resource "aws_iam_policy" "awsservicebrokerprovisioningpolicy_policy" {
   name        = "awsservicebrokerprovisioningpolicy_policy"
-  description = "Policy that is to be attached to the PCF Service Broker Provisioning"
+  description = "Policy that is to be attached to the AWS Service Broker Provisioning"
   policy      = data.template_file.awsservicebrokerprovisioningpolicy.rendered
 }
 
