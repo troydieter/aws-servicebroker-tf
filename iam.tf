@@ -4,12 +4,12 @@ resource "random_id" "iam-rand" {
   byte_length = 6
 }
 
-resource "aws_iam_user" "pcf_serv-broker-user" {
-  name = "pcf_serv-broker-user-${random_id.ddb-rand.hex}"
+resource "aws_iam_user" "serv-broker-user" {
+  name = "serv-broker-user-${random_id.ddb-rand.hex}"
 }
 
-resource "aws_iam_policy" "pcf_serv-broker_policy" {
-  name        = "pcf_serv-broker_policy"
+resource "aws_iam_policy" "serv-broker_policy" {
+  name        = "serv-broker_policy"
   description = "Policy that is to be attached to the PCF Service Broker User"
   policy      = <<EOF
 {
@@ -102,12 +102,12 @@ resource "aws_iam_policy" "pcf_serv-broker_policy" {
 EOF
 }
 
-resource "aws_iam_policy_attachment" "pcf_serv-broker_policy" {
-  name       = "pcf_serv-broker_policy-attach"
-  users      = [aws_iam_user.pcf_serv-broker-user.name]
-  policy_arn = aws_iam_policy.pcf_serv-broker_policy.arn
+resource "aws_iam_policy_attachment" "serv-broker_policy" {
+  name       = "serv-broker_policy-attach"
+  users      = [aws_iam_user.serv-broker-user.name]
+  policy_arn = aws_iam_policy.serv-broker_policy.arn
 }
 
-output "pcf_serv-broker" {
-  value = aws_iam_user.pcf_serv-broker-user.arn
+output "serv-broker" {
+  value = aws_iam_user.serv-broker-user.arn
 }
