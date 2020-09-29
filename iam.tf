@@ -31,6 +31,6 @@ resource "aws_iam_policy_attachment" "serv-broker_policy" {
 }
 
 output "serv-broker" {
-  value = aws_iam_user.serv-broker-user.arn
-  description = "The IAM role needed for use with the AWS Service Broker"
+  value = aws_iam_user.serv-broker-user.name
+  description = "The IAM username needed for use with the AWS Service Broker"
 }

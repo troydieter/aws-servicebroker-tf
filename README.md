@@ -10,5 +10,4 @@ This is a Terraform v0.12 version of https://github.com/awslabs/aws-servicebroke
 
 > Outputs:
 > 
-> pcf_serv-broker =
-> arn:aws:iam::exampleAcctID:user/serv-broker-user-31231e0430z7
+> pcf_serv-broker = serv-broker-user-31231e0430z7
