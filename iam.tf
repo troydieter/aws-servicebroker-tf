@@ -40,10 +40,16 @@ resource "aws_iam_policy" "awsservicebrokerprovisioningpolicy_policy" {
   policy      = data.template_file.awsservicebrokerprovisioningpolicy.rendered
 }
 
-resource "aws_iam_policy_attachment" "serv-broker_policy" {
-  name       = "serv-broker_policy-attach"
+resource "aws_iam_policy_attachment" "awsservicebroker_policy-attach" {
+  name       = "awsservicebroker_policy-attach"
   users      = [aws_iam_user.serv-broker-user.name]
-  policy_arn = [aws_iam_policy.awsservicebroker_policy.arn,aws_iam_policy.awsservicebrokerprovisioningpolicy_policy.arn]
+  policy_arn = aws_iam_policy.awsservicebroker_policy.arn
+}
+
+resource "aws_iam_policy_attachment" "awsservicebrokerprovisioningpolicy_policy-attach" {
+  name       = "awsservicebrokerprovisioningpolicy_policy-attach"
+  users      = [aws_iam_user.serv-broker-user.name]
+  policy_arn = aws_iam_policy.awsservicebrokerprovisioningpolicy_policy.arn
 }
 
 output "serv-broker" {
