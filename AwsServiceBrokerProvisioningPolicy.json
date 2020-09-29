@@ -1,0 +1,57 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "ssm:PutParameter",
+                "ssm:GetParameter",
+                "ssm:GetParameters"
+            ],
+            "Resource": [
+                "arn:aws:ssm:${aws_region}:${aws_account}:parameter/asb-*",
+                "arn:aws:ssm:${aws_region}:${aws_account}:parameter/Asb*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::awsservicebroker/templates/*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:DescribeStacks",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:UpdateStack",
+                "cloudformation:CancelUpdateStack"
+            ],
+            "Resource": "arn:aws:cloudformation:${aws_region}:${aws_account}:stack/aws-service-broker-*/*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "athena:*",
+                "dynamodb:*",
+                "kms:*",
+                "elasticache:*",
+                "elasticmapreduce:*",
+                "kinesis:*",
+                "rds:*",
+                "redshift:*",
+                "route53:*",
+                "s3:*",
+                "sns:*",
+                "sns:*",
+                "sqs:*",
+                "ec2:*",
+                "iam:*",
+                "lambda:*",
+                "codecommit:*"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}

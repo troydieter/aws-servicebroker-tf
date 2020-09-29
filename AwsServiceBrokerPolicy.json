@@ -1,0 +1,36 @@
+{
+   "Version": "2012-10-17",
+   "Statement": [
+       {
+           "Action": [
+               "s3:GetObject",
+               "s3:ListBucket"
+           ],
+           "Resource": [
+               "arn:aws:s3:::awsservicebroker/templates/*",
+               "arn:aws:s3:::awsservicebroker"
+           ],
+           "Effect": "Allow"
+       },
+       {
+           "Action": [
+               "dynamodb:PutItem",
+               "dynamodb:GetItem",
+               "dynamodb:DeleteItem"
+           ],
+           "Resource": "arn:aws:dynamodb:${aws_region}:${aws_account}:table/${aws_dynamodb_table}",
+           "Effect": "Allow"
+       },
+       {
+           "Action": [
+               "ssm:GetParameter",
+               "ssm:GetParameters"
+           ],
+           "Resource": [
+               "arn:aws:ssm:${aws_region}:${aws_account}:parameter/asb-*",
+               "arn:aws:ssm:${aws_region}:${aws_account}:parameter/Asb*"
+           ],
+           "Effect": "Allow"
+       }
+   ]
+}

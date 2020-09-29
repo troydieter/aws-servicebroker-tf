@@ -1,14 +1,24 @@
 data "aws_caller_identity" "current" {}
 
- data "template_file" "serv-broker-policy" {
-   template = file("serv-broker-policy.json")
+data "template_file" "awsservicebrokerpolicy" {
+   template = file("AwsServiceBrokerPolicy.json")
 
    vars = {
      aws_region = var.aws_region
      aws_account = data.aws_caller_identity.current.account_id
      aws_dynamodb_table = aws_dynamodb_table.brokertable.id
    }
- }
+}
+
+data "template_file" "awsservicebrokerprovisioningpolicy" {
+   template = file("AwsServiceBrokerProvisioningPolicy.json")
+
+   vars = {
+     aws_region = var.aws_region
+     aws_account = data.aws_caller_identity.current.account_id
+     aws_dynamodb_table = aws_dynamodb_table.brokertable.id
+   }
+}
 
 resource "random_id" "iam-rand" {
   byte_length = 6
@@ -18,16 +28,22 @@ resource "aws_iam_user" "serv-broker-user" {
   name = "serv-broker-user-${random_id.ddb-rand.hex}"
 }
 
-resource "aws_iam_policy" "serv-broker_policy" {
-  name        = "serv-broker_policy"
+resource "aws_iam_policy" "awsservicebroker_policy" {
+  name        = "awsservicebroker_policy"
   description = "Policy that is to be attached to the PCF Service Broker User"
-  policy      = data.template_file.serv-broker-policy.rendered
+  policy      = data.template_file.awsservicebrokerpolicy.rendered
+}
+
+resource "aws_iam_policy" "awsservicebrokerprovisioningpolicy_policy" {
+  name        = "awsservicebrokerprovisioningpolicy_policy"
+  description = "Policy that is to be attached to the PCF Service Broker Provisioning"
+  policy      = data.template_file.awsservicebrokerprovisioningpolicy.rendered
 }
 
 resource "aws_iam_policy_attachment" "serv-broker_policy" {
   name       = "serv-broker_policy-attach"
   users      = [aws_iam_user.serv-broker-user.name]
-  policy_arn = aws_iam_policy.serv-broker_policy.arn
+  policy_arn = [aws_iam_policy.awsservicebroker_policy.arn,aws_iam_policy.awsservicebrokerprovisioningpolicy_policy.arn]
 }
 
 output "serv-broker" {
