@@ -6,6 +6,7 @@ data "aws_caller_identity" "current" {}
    vars = {
      aws_region = var.aws_region
      aws_account = data.aws_caller_identity.current.account_id
+     aws_dynamodb_table = aws_dynamodb_table.brokertable.id
    }
  }
 

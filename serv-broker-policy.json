@@ -69,7 +69,7 @@
           "dynamodb:GetItem",
           "dynamodb:DeleteItem"
         ],
-        "Resource": "arn:aws:dynamodb:${aws_region}:${aws_account}:table/{aws_dynamodb_table.brokertable.id}",
+        "Resource": "arn:aws:dynamodb:${aws_region}:${aws_account}:table/${aws_dynamodb_table}",
         "Effect": "Allow"
       },
       {
