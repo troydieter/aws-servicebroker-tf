@@ -29,25 +29,25 @@ resource "aws_iam_user" "serv-broker-user" {
 }
 
 resource "aws_iam_policy" "awsservicebroker_policy" {
-  name        = "awsservicebroker_policy"
+  name        = "awsservicebroker_policy-${random_id.ddb-rand.hex}"
   description = "Policy that is to be attached to the AWS Service Broker User"
   policy      = data.template_file.awsservicebrokerpolicy.rendered
 }
 
 resource "aws_iam_policy" "awsservicebrokerprovisioningpolicy_policy" {
-  name        = "awsservicebrokerprovisioningpolicy_policy"
+  name        = "awsservicebrokerprovisioningpolicy_policy-${random_id.ddb-rand.hex}"
   description = "Policy that is to be attached to the AWS Service Broker Provisioning"
   policy      = data.template_file.awsservicebrokerprovisioningpolicy.rendered
 }
 
 resource "aws_iam_policy_attachment" "awsservicebroker_policy-attach" {
-  name       = "awsservicebroker_policy-attach"
+  name       = "awsservicebroker_policy-attach-${random_id.ddb-rand.hex}"
   users      = [aws_iam_user.serv-broker-user.name]
   policy_arn = aws_iam_policy.awsservicebroker_policy.arn
 }
 
 resource "aws_iam_policy_attachment" "awsservicebrokerprovisioningpolicy_policy-attach" {
-  name       = "awsservicebrokerprovisioningpolicy_policy-attach"
+  name       = "awsservicebrokerprovisioningpolicy_policy-attach-${random_id.ddb-rand.hex}"
   users      = [aws_iam_user.serv-broker-user.name]
   policy_arn = aws_iam_policy.awsservicebrokerprovisioningpolicy_policy.arn
 }
