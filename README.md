@@ -11,3 +11,6 @@ This is a Terraform v0.12 version of https://github.com/awslabs/aws-servicebroke
 > Outputs:
 > 
 > pcf_serv-broker = serv-broker-user-31231e0430z7
+
+
+Note: You may need to provide the IAM user, in our example case: `serv-broker-user-31231e0430z7` an access key and and a secret access key. This can be provided using the [create-login-profile](https://docs.aws.amazon.com/cli/latest/reference/iam/create-login-profile.html) and [create-access-key](https://docs.aws.amazon.com/cli/latest/reference/iam/create-access-key.html) AWS CLI mechanisms.
