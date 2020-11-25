@@ -10,6 +10,10 @@ resource "aws_dynamodb_table" "brokertable" {
   hash_key       = "id"
   range_key      = "userid"
 
+  point_in_time_recovery {
+    enabled = true
+  }
+  
   attribute {
     name = "id"
     type = "S"
